@@ -1,0 +1,14 @@
+{
+  "name": "website-to-app-converter",
+  "version": "1.0.0",
+  "description": "A simple website to mobile app converter",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "puppeteer": "^20.0.0",
+    "archiver": "^6.2.2"
+  }
+}

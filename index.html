@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website to Mobile App Converter</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Convert Website to Mobile App</h1>
+    <label for="url">Enter Website URL:</label>
+    <input type="text" id="url" placeholder="https://example.com">
+    <button onclick="convertToApp()">Convert</button>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    function convertToApp() {
+      const url = document.getElementById('url').value.trim();
+
+      if (!url) {
+        document.getElementById('status').innerText = 'Please enter a valid URL.';
+        return;
+      }
+
+      document.getElementById('status').innerText = 'Converting...';
+
+      fetch('/convert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById('status').innerHTML = `Conversion successful! Download your app <a href="${data.downloadLink}">here</a>.`;
+        } else {
+          document.getElementById('status').innerText = 'Conversion failed. Please try again.';
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('status').innerText = 'An error occurred. Please try again later.';
+      });
+    }
+  </script>
+</body>
+</html>
